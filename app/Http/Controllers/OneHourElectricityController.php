@@ -30,7 +30,7 @@ class OneHourElectricityController extends Controller
      */
     public function store(Request $request)
     {
-        $panel = Panel::where('serial', $request->panel_serial)->first();
+        $panel = Panel::where('serial', $request->panel_serial)->firstOrFail();
         $params = $request->all();
         $params['panel_id'] = $panel->id;
         unset($params['panel_serial']);
@@ -42,4 +42,6 @@ class OneHourElectricityController extends Controller
 
         return $panel->oneHourElectricities()->create($params);
     }
+
+
 }

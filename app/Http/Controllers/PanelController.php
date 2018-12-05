@@ -10,12 +10,7 @@ use App\Models\Panel;
 
 class PanelController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), Panel::$fieldValidations);

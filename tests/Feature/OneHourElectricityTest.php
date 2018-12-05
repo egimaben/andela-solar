@@ -22,6 +22,32 @@ class OneHourElectricityTest extends TestCase
         $this->panel = factory(Panel::class)->create();
     }
 
+    /** @test */
+    public function given_existent_solar_panel_save_fails_with_invalid_other_params()
+    {
+        $panel = factory(Panel::class)->create();
+        $serial = $panel->serial;
+        $response = $this->json('post', '/api/one_hour_electricities?panel_serial=' . $serial);
+        $response->assertStatus(422, $response);
+    }
+
+    /** @test */
+    public function given_inexistent_solar_panel_throw_404()
+    {
+        $response = $this->json('post', '/api/one_hour_electricities?panel_serial=test');
+        $response->assertStatus(404, $response);
+    }
+
+    /** @test */
+    public function given_existent_solar_panel_saves_when_all_params_valid()
+    {
+        $panel = factory(Panel::class)->create();
+        $serial = $panel->serial;
+        $params = ['kilowatts' => 9, 'panel_serial' => $serial, 'hour' => "2018-10-10 00:00:00"];
+        $response = $this->json('post', '/api/one_hour_electricities', $params);
+        $response->assertStatus(201, $response);
+    }
+
     /**
      * A basic test example.
      *
@@ -29,9 +55,9 @@ class OneHourElectricityTest extends TestCase
      */
     public function testIndexForPanelWithElectricity()
     {
-        factory(OneHourElectricity::class)->create([ 'panel_id' => $this->panel->id ]);
+        factory(OneHourElectricity::class)->create(['panel_id' => $this->panel->id]);
 
-        $response = $this->json('GET', '/api/one_hour_electricities?panel_serial='.$this->panel->serial);
+        $response = $this->json('GET', '/api/one_hour_electricities?panel_serial=' . $this->panel->serial);
 
         $response->assertStatus(200);
 
@@ -46,7 +72,7 @@ class OneHourElectricityTest extends TestCase
     public function testIndexForPanelWithoutElectricity()
     {
 
-        $response = $this->json('GET', '/api/one_hour_electricities?panel_serial='.$this->panel->serial);
+        $response = $this->json('GET', '/api/one_hour_electricities?panel_serial=' . $this->panel->serial);
 
         $response->assertStatus(200);
 
