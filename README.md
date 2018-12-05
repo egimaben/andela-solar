@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/egimaben/andela-solar.svg?style=svg)](https://circleci.com/gh/egimaben/andela-solar)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9d37a7d2f957f795b19c/maintainability)](https://codeclimate.com/github/egimaben/andela-solar/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9d37a7d2f957f795b19c/test_coverage)](https://codeclimate.com/github/egimaben/andela-solar/test_coverage)
 # Andela Solar
 
 Andela Solar is a backend web application created in a hurry by a team on the bench at Andela. This application collects 
